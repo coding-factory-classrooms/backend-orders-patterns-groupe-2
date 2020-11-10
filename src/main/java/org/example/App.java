@@ -3,6 +3,8 @@ package org.example;
 import org.example.core.Conf;
 import org.example.core.Template;
 import org.example.middlewares.LoggerMiddleware;
+import org.example.models.Shoe;
+import org.example.models.Sweater;
 import spark.Spark;
 
 import java.util.HashMap;
@@ -10,6 +12,11 @@ import java.util.HashMap;
 public class App {
     public static void main(String[] args) {
         initialize();
+
+        Order order = new Order();
+        order.addClothes(new Shoe());
+        order.addClothes(new Sweater());
+
 
         Spark.get("/", (req, res) -> {
             return Template.render("home.html", new HashMap<>());
