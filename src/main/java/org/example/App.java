@@ -21,6 +21,9 @@ public class App {
         Spark.get("/", (req, res) -> {
             return Template.render("home.html", new HashMap<>());
         });
+        Spark.get("/order", (req, res) -> {
+            return Template.render("createOrder.html", new HashMap<>());
+        });
     }
 
     static void initialize() {
