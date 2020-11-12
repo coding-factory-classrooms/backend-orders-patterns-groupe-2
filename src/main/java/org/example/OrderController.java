@@ -47,11 +47,34 @@ public class OrderController {
         order = ordersSytem.getOrdersList().get(index);
 
 
+        String state = req.queryParamOrDefault("action", "");
+
+        System.out.println(state);
+        if(!state.isEmpty()){
+            order.setState(Order.State.valueOf(state));
+            System.out.println("State changed: " + order.getState());
+        }
+
+
+
 
         Map<String, Object> model = new HashMap<>();
         model.put("id", id);
         model.put("order", order);
         return Template.render("orderDetail.html", model);
+    }
+
+    public String see(Request req, Response res) {
+        int id = Integer.parseInt(req.params(":id"));
+        int index = id - 1;
+
+        order = ordersSytem.getOrdersList().get(index);
+
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("id", id);
+        model.put("order", order);
+        return Template.render("order.html", model);
     }
 
     private void searchClothes(String clothesToSearch){

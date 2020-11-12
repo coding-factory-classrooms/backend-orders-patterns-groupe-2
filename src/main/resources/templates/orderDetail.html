@@ -1,14 +1,19 @@
 #parse("base.html")
 #@mainLayout()
 <a href="/">Home</a><br>
+<a href="/dashboard">Dashboard</a><br>
 <h1>Order number #$id</h1>
 <div>
 
     <div>
         <h2>Current State: $order.state</h2>
-        <select id="state_select">
+        <select id="state_select"  onchange="location = this.value;">
             #foreach ($s in $order.State.values())
-                <option value="$s">$s</option>
+                #if ($s == $order.state)
+                    <option  selected value="/order/$id?action=$s">$s</option>
+                #else
+                    <option value="/order/$id?action=$s">$s</option>
+                #end
             #end
         </select>
     </div>
@@ -38,15 +43,4 @@
         </table>
     </div>
 </div>
-
-<script type="text/javascript">
-    var select = document.getElementById("state_select");
-    var options = select.children;
-    for( var i = 0; i < children.length; i++) {
-        if(children[i].value == $order.state){
-
-        }
-
-    }
-</script>
 #end

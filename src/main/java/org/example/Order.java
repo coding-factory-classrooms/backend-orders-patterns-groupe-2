@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+
+    public interface onStateOrderChangedListener {
+        void onStateChanged(Order order);
+    }
+
+    private onStateOrderChangedListener stateOrderChangedListener;
+
     public enum State {
         NEW,
         IN_PROGRESS,
@@ -25,6 +32,13 @@ public class Order {
 
     public void setState(State state) {
         this.state = state;
+        if(stateOrderChangedListener != null){
+            stateOrderChangedListener.onStateChanged(this);
+        }
+    }
+
+    public void setStateOrderChangedListener(onStateOrderChangedListener stateOrderChangedListener){
+        this.stateOrderChangedListener = stateOrderChangedListener;
     }
 
     public Order() {

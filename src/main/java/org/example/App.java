@@ -14,9 +14,10 @@ public class App {
         initialize();
 
         Order order = new Order();
-//        order.addClothes(new Shoe());
+        order.addClothes(new Shoe("botte",50,42));
 //        order.addClothes(new Sweater());
         OrdersSytem orderSystem = new OrdersSytem();
+        orderSystem.addOrder(order);
         BuyClothesController buyClothesController = new BuyClothesController(orderSystem);
         OrderController orderController = new OrderController(orderSystem);
         DashboardController dashboardController = new DashboardController(orderSystem);
@@ -32,6 +33,9 @@ public class App {
         Spark.get("/dashboard", (req, res) -> dashboardController.list(req,res));
 
         Spark.get("/order/:id", (req, res) -> orderController.detail(req,res));
+
+
+        Spark.get("/seeOrder/:id", (req, res) -> orderController.see(req,res));
 
     }
 
