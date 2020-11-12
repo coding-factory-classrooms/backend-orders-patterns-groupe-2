@@ -1,10 +1,11 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class SystemLogger {
-    private final List<String> logsList;
+    private List<String> logsList;
 
 
     public SystemLogger() {
@@ -18,6 +19,16 @@ public class SystemLogger {
 
     public List<String> getLogsList() {
         return logsList;
+    }
+
+
+    public Momento save(List<Momento> momentoList){
+        Momento moment = new Momento(getLogsList());
+        momentoList.add(moment);
+        return moment;
+    }
+    public void restore(Momento momento){
+        logsList = momento.getLogs();
     }
 
 }

@@ -11,14 +11,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrdersSytem implements Order.onStateOrderChangedListener{
-    private List<Order> ordersList;
+    private final List<Order> ordersList;
     private List<Clothes> availableClothes;
+
     private SystemLogger logs;
+
+
+
+    private final List<Momento> momentoList = new ArrayList<Momento>();
+
+
+    public List<Momento> getMomentoList() {
+        return momentoList;
+    }
+
+    private Momento momento;
+
+    public Momento getMomento() {
+        return momento;
+    }
+
 
     public OrdersSytem(SystemLogger logs) {
         ordersList = new ArrayList<>();
         availableClothes = createAvailableClothes();
         this.logs = logs;
+        momento = new Momento(new ArrayList<String>());
+        getMomentoList().add(momento);
     }
 
     public List<String> getLogs() {
@@ -31,9 +50,6 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
     public List<Clothes> getAvailableClothes(){return availableClothes;}
 
 
-    public void setOrdersList(List<Order> ordersList) {
-        this.ordersList = ordersList;
-    }
 
 
     /**
@@ -47,6 +63,7 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
         Date date = new Date();
         SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:s");
         logs.addLog(simpleFormat.format(date) + "</td> <td>" + order);
+        saveLogs();
         return ordersList.add(order);
     }
     public List<Clothes> createAvailableClothes(){
@@ -63,5 +80,38 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
         Date date = new Date();
         SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:s");
         logs.addLog(simpleFormat.format(date) + "</td> <td>" + order);
+        saveLogs();
     }
+
+    public void saveLogs(){
+
+        momento = logs.save(momentoList);
+    }
+
+    public void undo() {
+
+        if(momentoList.indexOf(momento) == 0){
+            return;
+        }
+
+        int index = momentoList.indexOf(momento) -1;
+
+
+        momento = momentoList.get(index);
+        logs.restore(momento);
+    }
+    public void redo() {
+
+        if(momentoList.indexOf(momento) == momentoList.size()-1){
+            return;
+        }
+
+        int index = momentoList.indexOf(momento) + 1;
+
+
+        momento = momentoList.get(index);
+        logs.restore(momento);
+    }
+
+
 }
