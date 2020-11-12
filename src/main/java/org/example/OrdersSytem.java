@@ -10,15 +10,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OrdersSytem {
+public class OrdersSytem implements Order.onStateOrderChangedListener{
     private List<Order> ordersList;
     private List<Clothes> availableClothes;
     private SystemLogger logs;
 
-    public OrdersSytem() {
+    public OrdersSytem(SystemLogger logs) {
         ordersList = new ArrayList<>();
         availableClothes = createAvailableClothes();
-        logs = new SystemLogger();
+        this.logs = logs;
     }
 
     public List<String> getLogs() {
@@ -45,11 +45,7 @@ public class OrdersSytem {
             return false;
         }
         Date date = new Date();
-
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:s");
-
-
-
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:s");
         logs.addLog(simpleFormat.format(date) + "</td> <td>" + order);
         return ordersList.add(order);
     }
@@ -60,5 +56,12 @@ public class OrdersSytem {
         availableClothes.add(new Sweater("longues",20,Sweater.Size.S));
         availableClothes.add(new Sweater("colV",15,Sweater.Size.M));
         return availableClothes;
+    }
+
+    @Override
+    public void onStateChanged(Order order) {
+        Date date = new Date();
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:s");
+        logs.addLog(simpleFormat.format(date) + "</td> <td>" + order);
     }
 }

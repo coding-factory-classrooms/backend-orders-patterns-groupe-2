@@ -43,13 +43,13 @@
             <tbody>
             #foreach ($l in $logs)
             <tr>
-                <td>$l</td>
-
+                #if ($velocityCount == $id)
+                    <td><b>$l</b></td>
+                #else
+                    <td>$l</td>
+                #end
             </tr>
             #end
-            <tr>
-
-            </tr>
             </tbody>
         </table>
     </div>

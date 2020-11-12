@@ -16,6 +16,9 @@ public class DashboardController {
     public String list (Request request, Response response){
         Map<String, Object> model = new HashMap<>();
 
+        int index = ordersSytem.getLogs().size();
+
+        model.put("id",index);
         model.put("orders",ordersSytem.getOrdersList());
         model.put("logs",ordersSytem.getLogs());
 

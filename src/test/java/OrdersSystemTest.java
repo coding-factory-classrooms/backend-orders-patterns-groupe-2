@@ -15,8 +15,8 @@ public class OrdersSystemTest {
 
     @Before
     public void before() {
-        ordersSystem = new OrdersSytem();
         logger = Mockito.mock(SystemLogger.class);
+        ordersSystem = new OrdersSytem(logger);
     }
 
     //STORY 1 & 2
@@ -48,10 +48,33 @@ public class OrdersSystemTest {
     @Test
     public void verifyLogsAfterAddingClothes() {
         Order order = new Order();
+        ordersSystem = new OrdersSytem(new SystemLogger());
         order.addClothes(new Shoe("Botte de ferme",50));
 
         ordersSystem.addOrder(order);
 
-        Assert.assertTrue(ordersSystem.getLogs().size() > 0);
+        Assert.assertEquals(1, ordersSystem.getLogs().size());
+    }
+
+    @Test
+    public void verifyLogsWhenChangeOrderState() {
+        Order order = new Order();
+        order.setStateOrderChangedListener(ordersSystem);
+        ordersSystem.addOrder(order);
+        order.setState(Order.State.PROCESSED);
+
+        Mockito.verify(logger, Mockito.times(2)).addLog(Mockito.anyString());
+    }
+
+
+    @Test
+    public void verifyLogsAddedWhenOrderStateChanged() {
+        Order order = new Order();
+        ordersSystem = new OrdersSytem(new SystemLogger());
+        order.setStateOrderChangedListener(ordersSystem);
+        ordersSystem.addOrder(order);
+        order.setState(Order.State.PROCESSED);
+
+       Assert.assertEquals(2, ordersSystem.getLogs().size());
     }
 }

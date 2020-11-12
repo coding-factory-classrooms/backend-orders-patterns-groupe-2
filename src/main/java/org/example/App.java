@@ -12,20 +12,25 @@ import java.util.HashMap;
 public class App {
     public static void main(String[] args) {
         initialize();
+        SystemLogger logger = new SystemLogger();
+        OrdersSytem ordersSytem = new OrdersSytem(logger);
 
         Order order1 = new Order();
         order1.addClothes(new Shoe("botte",50,42));
+        order1.setStateOrderChangedListener(ordersSytem);
+
 
         Order order2 = new Order();
         order2.addClothes(new Shoe("sandales",50,42));
+        order2.setStateOrderChangedListener(ordersSytem);
 
-        OrdersSytem orderSystem = new OrdersSytem();
-        orderSystem.addOrder(order1);
-        orderSystem.addOrder(order2);
 
-        BuyClothesController buyClothesController = new BuyClothesController(orderSystem);
-        OrderController orderController = new OrderController(orderSystem);
-        DashboardController dashboardController = new DashboardController(orderSystem);
+        ordersSytem.addOrder(order1);
+        ordersSytem.addOrder(order2);
+
+        BuyClothesController buyClothesController = new BuyClothesController(ordersSytem);
+        OrderController orderController = new OrderController(ordersSytem);
+        DashboardController dashboardController = new DashboardController(ordersSytem);
 
 
         Spark.get("/", (req, res) -> {
