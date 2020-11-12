@@ -1,0 +1,32 @@
+#parse("base.html")
+#@mainLayout()
+<a href="/">Home</a><br>
+<h1>Your order #$id</h1>
+<div>
+    <p>Current State: $order.state</p>
+    <div>
+        <h2>Ma commande</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+        <tbody>
+        #foreach ($c in $order.getClothesList())
+        <tr>
+            <td>$c.getTypeName()</td>
+            <td>$c.getName()</td>
+            <td>$c.getPrice()</td>
+        </tr>
+        #end
+        <tr>
+
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+#end

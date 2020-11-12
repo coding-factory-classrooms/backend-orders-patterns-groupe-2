@@ -1,0 +1,52 @@
+#parse("base.html")
+#@mainLayout()
+<a href="/">Home</a><br>
+<h1>Order number #$id</h1>
+<div>
+
+    <div>
+        <h2>Current State: $order.state</h2>
+        <select id="state_select">
+            #foreach ($s in $order.State.values())
+                <option value="$s">$s</option>
+            #end
+        </select>
+    </div>
+
+    <div>
+        <h2>Commande</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+        <tbody>
+        #foreach ($c in $order.getClothesList())
+        <tr>
+            <td>$c.getTypeName()</td>
+            <td>$c.getName()</td>
+            <td>$c.getPrice()</td>
+        </tr>
+        #end
+        <tr>
+
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var select = document.getElementById("state_select");
+    var options = select.children;
+    for( var i = 0; i < children.length; i++) {
+        if(children[i].value == $order.state){
+
+        }
+
+    }
+</script>
+#end

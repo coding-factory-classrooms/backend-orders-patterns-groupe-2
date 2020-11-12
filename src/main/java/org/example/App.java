@@ -19,6 +19,7 @@ public class App {
         OrdersSytem orderSystem = new OrdersSytem();
         BuyClothesController buyClothesController = new BuyClothesController(orderSystem);
         OrderController orderController = new OrderController(orderSystem);
+        DashboardController dashboardController = new DashboardController(orderSystem);
 
 
         Spark.get("/", (req, res) -> {
@@ -26,6 +27,11 @@ public class App {
         });
         Spark.get("/buyClothes", (req, res) -> buyClothesController.list(req,res));
         Spark.post("/createOrder", (req, res) -> orderController.create(req,res));
+
+
+        Spark.get("/dashboard", (req, res) -> dashboardController.list(req,res));
+
+        Spark.get("/order/:id", (req, res) -> orderController.detail(req,res));
 
     }
 

@@ -1,0 +1,35 @@
+#parse("base.html")
+#@mainLayout()
+<a href="/dashboard">Refresh</a><br>
+<h1>Order dashboard</h1>
+<div>
+    <h2>Current Orders</h2>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Content</th>
+                <th>Current State</th>
+            </tr>
+            </thead>
+        <tbody>
+        #foreach ($o in $orders)
+        <tr>
+            <td>
+                <a href="/order/$velocityCount">
+                    $velocityCount
+                </a>
+            </td>
+            <td>$o.getClothesList().size()</td>
+            <td>$o.getState()</td>
+        </tr>
+        #end
+        <tr>
+
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+#end
