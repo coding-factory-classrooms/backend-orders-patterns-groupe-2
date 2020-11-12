@@ -17,6 +17,7 @@ public class DashboardController {
         Map<String, Object> model = new HashMap<>();
 
         model.put("orders",ordersSytem.getOrdersList());
+        model.put("logs",ordersSytem.getLogs());
 
         return Template.render("dashboard.html",model);
     }

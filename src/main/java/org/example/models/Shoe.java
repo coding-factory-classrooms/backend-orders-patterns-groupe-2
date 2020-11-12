@@ -24,4 +24,13 @@ public class Shoe extends Clothes {
     public String getTypeName() {
         return "Shoe";
     }
+
+    @Override
+    public String toString() {
+        return "Shoe{" +
+                "shoeSize=" + shoeSize +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

@@ -13,11 +13,16 @@ public class App {
     public static void main(String[] args) {
         initialize();
 
-        Order order = new Order();
-        order.addClothes(new Shoe("botte",50,42));
-//        order.addClothes(new Sweater());
+        Order order1 = new Order();
+        order1.addClothes(new Shoe("botte",50,42));
+
+        Order order2 = new Order();
+        order2.addClothes(new Shoe("sandales",50,42));
+
         OrdersSytem orderSystem = new OrdersSytem();
-        orderSystem.addOrder(order);
+        orderSystem.addOrder(order1);
+        orderSystem.addOrder(order2);
+
         BuyClothesController buyClothesController = new BuyClothesController(orderSystem);
         OrderController orderController = new OrderController(orderSystem);
         DashboardController dashboardController = new DashboardController(orderSystem);

@@ -50,4 +50,11 @@ public class Order {
         clothesList.add(clothes);
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "clothesList=" + clothesList +
+                ", state=" + state +
+                '}';
+    }
 }

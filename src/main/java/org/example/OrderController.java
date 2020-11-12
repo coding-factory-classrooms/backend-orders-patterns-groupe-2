@@ -36,7 +36,7 @@ public class OrderController {
         Map<String, Object> model = new HashMap<>();
         model.put("id", ordersSytem.getOrdersList().size() - 1);
         model.put("order", order);
-        return Template.render("order.html", model);
+        return Template.render("orderCustomer.html", model);
     }
     public String detail(Request req, Response res) {
 
@@ -74,7 +74,7 @@ public class OrderController {
         Map<String, Object> model = new HashMap<>();
         model.put("id", id);
         model.put("order", order);
-        return Template.render("order.html", model);
+        return Template.render("orderCustomer.html", model);
     }
 
     private void searchClothes(String clothesToSearch){

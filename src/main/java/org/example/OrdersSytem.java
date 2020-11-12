@@ -4,16 +4,25 @@ import org.example.models.Clothes;
 import org.example.models.Shoe;
 import org.example.models.Sweater;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrdersSytem {
     private List<Order> ordersList;
     private List<Clothes> availableClothes;
+    private SystemLogger logs;
 
     public OrdersSytem() {
         ordersList = new ArrayList<>();
         availableClothes = createAvailableClothes();
+        logs = new SystemLogger();
+    }
+
+    public List<String> getLogs() {
+        return logs.getLogsList();
     }
 
     public List<Order> getOrdersList() {
@@ -27,10 +36,7 @@ public class OrdersSytem {
     }
 
 
-
-
     /**
-     *
      * @param order to add
      * @return true if the statement of the order is NEW, else false
      */
@@ -38,6 +44,13 @@ public class OrdersSytem {
         if (order.getState() != Order.State.NEW) {
             return false;
         }
+        Date date = new Date();
+
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:s");
+
+
+
+        logs.addLog(simpleFormat.format(date) + "</td> <td>" + order);
         return ordersList.add(order);
     }
     public List<Clothes> createAvailableClothes(){

@@ -29,4 +29,13 @@ public class Sweater extends Clothes {
     public String getTypeName() {
         return "Sweater";
     }
+
+    @Override
+    public String toString() {
+        return "Sweater{" +
+                "size=" + size +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
