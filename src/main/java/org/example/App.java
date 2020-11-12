@@ -14,16 +14,19 @@ public class App {
         initialize();
 
         Order order = new Order();
-        order.addClothes(new Shoe());
-        order.addClothes(new Sweater());
+//        order.addClothes(new Shoe());
+//        order.addClothes(new Sweater());
+        OrdersSytem orderSystem = new OrdersSytem();
+        BuyClothesController buyClothesController = new BuyClothesController(orderSystem);
+        OrderController orderController = new OrderController(orderSystem);
 
 
         Spark.get("/", (req, res) -> {
             return Template.render("home.html", new HashMap<>());
         });
-        Spark.get("/order", (req, res) -> {
-            return Template.render("createOrder.html", new HashMap<>());
-        });
+        Spark.get("/buyClothes", (req, res) -> buyClothesController.list(req,res));
+        Spark.post("/createOrder", (req, res) -> orderController.create(req,res));
+
     }
 
     static void initialize() {
