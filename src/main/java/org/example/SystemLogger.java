@@ -22,8 +22,8 @@ public class SystemLogger {
     }
 
 
-    public Momento save(List<Momento> momentoList){
-        Momento moment = new Momento(getLogsList());
+    public Momento save(List<Momento> momentoList, List<Order> ordersToSave){
+        Momento moment = new Momento(getLogsList(),ordersToSave);
         momentoList.add(moment);
         return moment;
     }

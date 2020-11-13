@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrdersSytem implements Order.onStateOrderChangedListener{
-    private final List<Order> ordersList;
+    private List<Order> ordersList;
     private List<Clothes> availableClothes;
 
     private SystemLogger logs;
@@ -36,7 +36,7 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
         ordersList = new ArrayList<>();
         availableClothes = createAvailableClothes();
         this.logs = logs;
-        momento = new Momento(new ArrayList<String>());
+        momento = new Momento(new ArrayList<String>(), new ArrayList<Order>());
         getMomentoList().add(momento);
     }
 
@@ -63,8 +63,9 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
         Date date = new Date();
         SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:s");
         logs.addLog(simpleFormat.format(date) + "</td> <td>" + order);
+        ordersList.add(order);
         saveLogs();
-        return ordersList.add(order);
+        return true;
     }
     public List<Clothes> createAvailableClothes(){
         ArrayList<Clothes> availableClothes = new ArrayList<>();
@@ -85,20 +86,32 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
 
     public void saveLogs(){
 
-        momento = logs.save(momentoList);
+        momento = logs.save(momentoList, ordersList);
     }
 
     public void undo() {
+
+        for (Order order:momento.getOrdersSaved()) {
+            System.out.println(order);
+
+        }
+        System.out.println("fini");
+        System.out.println(momentoList.indexOf(momento));
+        System.out.println(momento.getLogs().size());
+        System.out.println(momento.getOrdersSaved().size());
+        System.out.println(momento.getOrdersSaved().toString());
 
         if(momentoList.indexOf(momento) == 0){
             return;
         }
 
-        int index = momentoList.indexOf(momento) -1;
+        int index = momentoList.indexOf(momento)-1;
 
 
         momento = momentoList.get(index);
+        ordersList = momento.getOrdersSaved();
         logs.restore(momento);
+
     }
     public void redo() {
 
@@ -110,7 +123,9 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
 
 
         momento = momentoList.get(index);
+        ordersList = momento.getOrdersSaved();
         logs.restore(momento);
+
     }
 
 
