@@ -1,0 +1,19 @@
+sequenceDiagram
+    Participant Utilisateur
+    Participant DashboardController
+    Participant OrdersSystem
+    Participant SystemLogger
+    Participant Momento
+    Utilisateur ->>+DashboardController: click Undo()
+    DashboardController->>DashboardController: query action Undo
+    DashboardController->>OrdersSystem: Undo()
+    OrdersSystem->>OrdersSystem: Verify can Undo
+    OrdersSystem->>OrdersSystem: change current momento to n-1
+    OrdersSystem->>Momento: call momento getOrders
+    Momento->>OrdersSystem: update OrdersSysteme OrdersList
+    OrdersSystem->>SystemLogger: restore(momento)
+    SystemLogger->>Momento: call momento getLogs
+    Momento->>SystemLogger: update SystemLogger Logs
+    SystemLogger->>OrdersSystem: update OrdersSystem getLogs
+    OrdersSystem->>DashboardController: orders and logs updated to n-1
+    DashboardController-->-Utilisateur: Display OrderList & logsList updated
