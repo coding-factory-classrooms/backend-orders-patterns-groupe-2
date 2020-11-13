@@ -90,17 +90,6 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
     }
 
     public void undo() {
-
-        for (Order order:momento.getOrdersSaved()) {
-            System.out.println(order);
-
-        }
-        System.out.println("fini");
-        System.out.println(momentoList.indexOf(momento));
-        System.out.println(momento.getLogs().size());
-        System.out.println(momento.getOrdersSaved().size());
-        System.out.println(momento.getOrdersSaved().toString());
-
         if(momentoList.indexOf(momento) == 0){
             return;
         }
@@ -121,8 +110,10 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
 
         int index = momentoList.indexOf(momento) + 1;
 
-
         momento = momentoList.get(index);
+
+        System.out.println(momentoList.indexOf(momento));
+
         ordersList = momento.getOrdersSaved();
         logs.restore(momento);
 

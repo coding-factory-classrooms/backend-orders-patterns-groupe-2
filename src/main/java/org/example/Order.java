@@ -45,6 +45,10 @@ public class Order {
         state = State.NEW;
         clothesList = new ArrayList<>();
     }
+    public Order(Order order) {
+        state = order.getState();
+        clothesList = order.getClothesList();
+    }
 
     public void addClothes(Clothes clothes) {
         clothesList.add(clothes);

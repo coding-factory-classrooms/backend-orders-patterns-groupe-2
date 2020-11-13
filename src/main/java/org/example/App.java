@@ -47,9 +47,6 @@ public class App {
 
         Spark.get("/seeOrder/:id", (req, res) -> orderController.see(req,res));
 
-        Spark.get("/dashboardUndo", (req, res) -> dashboardController.undo(req,res));
-
-        Spark.get("/dashboardRedo", (req, res) -> dashboardController.redo(req,res));
 
     }
 

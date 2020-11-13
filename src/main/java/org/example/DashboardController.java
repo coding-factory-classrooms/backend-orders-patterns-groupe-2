@@ -16,19 +16,13 @@ public class DashboardController {
     public String list (Request request, Response response){
         Map<String, Object> model = new HashMap<>();
 
-        int index = ordersSytem.getLogs().size();
+        String action = request.queryParamOrDefault("action", "");
 
-        model.put("id",index);
-        model.put("orders",ordersSytem.getOrdersList());
-        model.put("logs",ordersSytem.getLogs());
-
-        return Template.render("dashboard.html",model);
-    }
-
-    public String undo (Request request, Response response){
-        Map<String, Object> model = new HashMap<>();
-
-        ordersSytem.undo();
+        if(action.equals("undo")){
+            ordersSytem.undo();
+        }else if(action.equals("redo")){
+            ordersSytem.redo();
+        }
 
         int index = ordersSytem.getLogs().size();
 
@@ -38,17 +32,5 @@ public class DashboardController {
 
         return Template.render("dashboard.html",model);
     }
-    public String redo (Request request, Response response){
-        Map<String, Object> model = new HashMap<>();
 
-        ordersSytem.redo();
-
-        int index = ordersSytem.getLogs().size();
-
-        model.put("id",index);
-        model.put("orders",ordersSytem.getOrdersList());
-        model.put("logs",ordersSytem.getLogs());
-
-        return Template.render("dashboard.html",model);
-    }
 }
