@@ -1,0 +1,16 @@
+sequenceDiagram
+    Participant Utilisateur
+    Participant OrderController
+    Participant Order
+    Participant onStateOrderChangedListener
+    Participant OrdersSystem
+    Participant SystemLogger
+    Utilisateur ->>+OrderController: click Set Order State
+    OrderController->>Order: setState(state)
+    Order->>Order: change state
+    Order->>onStateOrderChangedListener: onStateChanged(order)
+    onStateOrderChangedListener->>OrdersSystem: notify state changement
+    OrdersSystem->>SystemLogger: addLog(message)
+    SystemLogger->>SystemLogger: UPDATE Logs
+    OrdersSystem->>OrderController: Order changed
+    OrderController-->-Utilisateur: Display order altered
