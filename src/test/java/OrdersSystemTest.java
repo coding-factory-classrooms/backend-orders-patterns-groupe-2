@@ -163,19 +163,13 @@ public class OrdersSystemTest {
         order2.addClothes(new Shoe("Sandale",50));
         ordersSystem.addOrder(order1);
         ordersSystem.addOrder(order2);
-
-
-
+        
         order2.setState(Order.State.PROCESSED);
-
 
         System.out.println("////////////////////////////");
         for (Momento m: ordersSystem.getMomentoList()) {
             System.out.println(m);
         }
-
-
-
     }
 
 
