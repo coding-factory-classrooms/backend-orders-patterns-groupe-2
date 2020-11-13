@@ -26,13 +26,10 @@ public class OrdersSystemTest {
     @Test
     public void addCommandWithNewStatement() {
         Order order = new Order();
-        order.setState(Order.State.IN_PROGRESS);
 
-        order.setState(Order.State.NEW);
         boolean isNewOrder = ordersSystem.addOrder(order);
 
         Assert.assertTrue(isNewOrder);
-        Assert.assertEquals(Order.State.NEW,ordersSystem.getOrdersList().get(0).getState());
         Assert.assertEquals(1,ordersSystem.getOrdersList().size());
     }
 
