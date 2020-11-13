@@ -93,12 +93,9 @@ public class OrdersSystemTest {
         ordersSystem.undo(); //liste de momentos avec 2 liste, ce undo passe le current momento a celui qui est avant l'actuel current momento dans le tableau
         ordersSystem.undo(); //quand on undo sur la liste de momento alors qu'elle n'a pas de momento précédent, ce undo ne fait rien
 
-
         Assert.assertEquals(0, ordersSystem.getMomento().getLogs().size());
-
-
-
     }
+
     //STORY 9
     @Test
     public void UndoWorksWhenTwoOrMoreLogsWereSaved() {
@@ -111,10 +108,7 @@ public class OrdersSystemTest {
         ordersSystem.addOrder(order2);
         ordersSystem.undo(); //liste de momentos avec 2 liste, ce undo passe le current momento a celui qui est avant l'actuel current momento dans le tableau
 
-
         Assert.assertNotEquals(ordersSystem.getMomentoList().get(1).getLogs(), ordersSystem.getMomentoList().get(2).getLogs());
-
-
     }
 
     //STORY 10
@@ -163,7 +157,7 @@ public class OrdersSystemTest {
         order2.addClothes(new Shoe("Sandale",50));
         ordersSystem.addOrder(order1);
         ordersSystem.addOrder(order2);
-        
+
         order2.setState(Order.State.PROCESSED);
 
         System.out.println("////////////////////////////");

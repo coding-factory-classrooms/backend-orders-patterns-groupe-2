@@ -27,7 +27,7 @@ public class Momento {
     public String toString() {
         return "Momento{" +
                 "logs=" + logs +
-                "orders=" + ordersList+
+                "orders=" + ordersList +
                 '}';
     }
 }
