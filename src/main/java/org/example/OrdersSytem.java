@@ -96,14 +96,12 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
 
         int index = momentoList.indexOf(momento)-1;
 
-
         momento = momentoList.get(index);
         ordersList = momento.getOrdersSaved();
         logs.restore(momento);
-
     }
     public void redo() {
-
+        System.out.println(momentoList.size());
         if(momentoList.indexOf(momento) == momentoList.size()-1){
             return;
         }
@@ -112,7 +110,7 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
 
         momento = momentoList.get(index);
 
-        System.out.println(momentoList.indexOf(momento));
+
 
         ordersList = momento.getOrdersSaved();
         logs.restore(momento);

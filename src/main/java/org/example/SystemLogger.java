@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SystemLogger {
@@ -14,7 +13,7 @@ public class SystemLogger {
 
     public void addLog(String message) {
         logsList.add(message);
-        //System.out.println(message);
+        System.out.println(message);
     }
 
     public List<String> getLogsList() {

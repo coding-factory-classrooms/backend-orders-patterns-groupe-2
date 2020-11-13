@@ -39,24 +39,17 @@ public class OrderController {
         return Template.render("orderCustomer.html", model);
     }
     public String detail(Request req, Response res) {
-
-
         int id = Integer.parseInt(req.params(":id"));
         int index = id - 1;
 
         order = ordersSytem.getOrdersList().get(index);
 
-
         String state = req.queryParamOrDefault("action", "");
 
-        System.out.println(state);
         if(!state.isEmpty()){
             order.setState(Order.State.valueOf(state));
             System.out.println("State changed: " + order.getState());
         }
-
-
-
 
         Map<String, Object> model = new HashMap<>();
         model.put("id", id);
