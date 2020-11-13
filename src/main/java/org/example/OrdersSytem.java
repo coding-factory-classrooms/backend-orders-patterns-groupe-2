@@ -16,10 +16,7 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
 
     private SystemLogger logs;
 
-
-
     private final List<Momento> momentoList = new ArrayList<Momento>();
-
 
     public List<Momento> getMomentoList() {
         return momentoList;
@@ -48,9 +45,6 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
         return ordersList;
     }
     public List<Clothes> getAvailableClothes(){return availableClothes;}
-
-
-
 
     /**
      * @param order to add
