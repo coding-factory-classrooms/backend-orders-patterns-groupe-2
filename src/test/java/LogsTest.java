@@ -20,7 +20,7 @@ public class LogsTest {
 
     //STORY 13
     @Test
-    public void openFile() {
+    public void verifyFileOpenedAndTryToWrite() {
         ordersSystem.addOrder(order);
         logsWriter.write(systemLogger.getLogsList());
     }
