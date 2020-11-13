@@ -65,6 +65,7 @@ public class OrdersSystemTest {
         Order order = new Order();
         order.setStateOrderChangedListener(ordersSystem);
         ordersSystem.addOrder(order);
+
         order.setState(Order.State.PROCESSED);
 
         Mockito.verify(logger, Mockito.times(2)).addLog(Mockito.anyString());
@@ -75,6 +76,7 @@ public class OrdersSystemTest {
     public void verifyLogsAddedWhenOrderStateChanged() {
         Order order = new Order();
         ordersSystem = new OrdersSytem(new SystemLogger());
+
         order.setStateOrderChangedListener(ordersSystem);
         ordersSystem.addOrder(order);
         order.setState(Order.State.PROCESSED);
@@ -90,6 +92,7 @@ public class OrdersSystemTest {
         Order order = new Order();
         order.addClothes(new Shoe("Botte de ferme",50));
         ordersSystem.addOrder(order); //passe le current momento au dernier ajouté au tableau
+
         ordersSystem.undo(); //liste de momentos avec 2 liste, ce undo passe le current momento a celui qui est avant l'actuel current momento dans le tableau
         ordersSystem.undo(); //quand on undo sur la liste de momento alors qu'elle n'a pas de momento précédent, ce undo ne fait rien
 
@@ -106,6 +109,7 @@ public class OrdersSystemTest {
         order2.addClothes(new Shoe("Sandale",50));
         ordersSystem.addOrder(order1); //passe le current momento au dernier ajouté au tableau
         ordersSystem.addOrder(order2);
+
         ordersSystem.undo(); //liste de momentos avec 2 liste, ce undo passe le current momento a celui qui est avant l'actuel current momento dans le tableau
 
         Assert.assertNotEquals(ordersSystem.getMomentoList().get(1).getLogs(), ordersSystem.getMomentoList().get(2).getLogs());
@@ -118,10 +122,10 @@ public class OrdersSystemTest {
         Order order = new Order();
         order.addClothes(new Shoe("Botte de ferme",50));
         ordersSystem.addOrder(order); //passe le current momento au dernier ajouté au tableau
+
         ordersSystem.redo(); // redo quand il y n'y a pas de n+1 de crash pas
 
         Assert.assertEquals(2, ordersSystem.getMomentoList().size());
-
     }
 
     //STORY 10
@@ -141,7 +145,6 @@ public class OrdersSystemTest {
         ordersSystem.redo();
 
         Assert.assertEquals(2, ordersSystem.getMomentoList().indexOf(ordersSystem.getMomento()));
-
     }
 
     //STORY 10
@@ -165,6 +168,4 @@ public class OrdersSystemTest {
             System.out.println(m);
         }
     }
-
-
 }

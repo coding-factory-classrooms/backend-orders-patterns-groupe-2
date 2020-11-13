@@ -85,7 +85,6 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
     }
 
     public void saveLogs(){
-
         momento = logs.save(momentoList, ordersList);
     }
 
@@ -110,11 +109,8 @@ public class OrdersSytem implements Order.onStateOrderChangedListener{
 
         momento = momentoList.get(index);
 
-
-
         ordersList = momento.getOrdersSaved();
         logs.restore(momento);
-
     }
 
 
