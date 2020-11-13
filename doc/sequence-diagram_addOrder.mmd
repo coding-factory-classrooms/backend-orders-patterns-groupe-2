@@ -1,0 +1,13 @@
+sequenceDiagram
+    Participant Utilisateur
+    Participant OrderController
+    Participant OrdersSystem
+    Participant SystemLogger
+    Utilisateur ->>+OrderController: click Create Order
+    OrderController->>OrderController: new Order
+        OrderController->>OrderController: add clothes to order
+    OrderController->>OrdersSystem: addOrder(order)
+    OrdersSystem->>SystemLogger: addLog(message)
+    SystemLogger->>SystemLogger: UPDATE Logs
+    OrdersSystem->>OrderController: Order added
+    OrderController-->-Utilisateur: Display the new order
