@@ -1,0 +1,79 @@
+classDiagram
+    Clothes <|-- Shoe
+    Clothes <|-- Sweater
+    class Clothes {
+    <<abstract>>
+      #int price
+      #String name
+      +getTypeName()*
+    }
+    class Shoe{
+      -int shoeSize
+      +toString()
+      +getTypeName()*
+    }
+    class Sweater{
+      +size:Sweater.Size
+      +toString()
+      +getTypeName()*
+    }
+      class SweaterSize{
+      <<enumeration>>
+        L
+        S
+        M
+    }
+    Sweater -- SweaterSize
+    class Order{
+      -State : Order.State
+      -stateOrderChangedListener : Order.onStateOrderChangedListener
+      -clothesList : List<Clothes>
+      +toString()
+      +addClothes(clothes)
+    }
+      class OrderOnStateOrderChangedListener{
+      <<interface>>
+      +onStateChanged(order)
+    }
+    class OrderState{
+      <<enumeration>>
+      NEW
+      IN_PROGRESS
+      PROCESSED
+      CANCELLED
+    }
+    Order -- OrderState
+    Order --> OrderOnStateOrderChangedListener
+    Order o-- Clothes
+
+    class OrderSystem {
+      -orderList : List<Order>
+      -availableClothes : List<Clothes>
+      -logs: SystemLogger
+      -momentoList: List<Momento>
+      -momento: OrderSystem.Momento
+      +createAvailableClothes:List<Clothes>
+      +addOrder(order)
+      +onStateChanged(order)
+      +saveLogs()
+      +undo()
+      +redo()
+    }
+    OrderSystem --|> OrderOnStateOrderChangedListener
+    OrderSystem o-- Order
+    OrderSystem o-- Momento
+    OrderSystem o-- Clothes
+    OrderSystem --> SystemLogger
+    SystemLogger ..> Momento
+    Momento o-- Order
+    class Momento{
+      -logs: List<String>
+      -ordersList: List<Order>
+      +toString()
+    }
+    class SystemLogger{
+      -logsList:List<String>
+      +addLog(message)
+      +save(momentoList)
+      +restore(momento)
+    }
