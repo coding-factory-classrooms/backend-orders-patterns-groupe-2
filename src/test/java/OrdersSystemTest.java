@@ -93,6 +93,7 @@ public class OrdersSystemTest {
         ordersSystem.undo(); //liste de momentos avec 2 liste, ce undo passe le current momento a celui qui est avant l'actuel current momento dans le tableau
         ordersSystem.undo(); //quand on undo sur la liste de momento alors qu'elle n'a pas de momento précédent, ce undo ne fait rien
 
+
         Assert.assertEquals(0, ordersSystem.getMomento().getLogs().size());
 
 
@@ -104,19 +105,48 @@ public class OrdersSystemTest {
         ordersSystem = new OrdersSytem(new SystemLogger());
         Order order1 = new Order();
         Order order2 = new Order();
-        Order order3 = new Order();
         order1.addClothes(new Shoe("Botte de ferme",50));
         order2.addClothes(new Shoe("Sandale",50));
-        order3.addClothes(new Shoe("nike",50));
         ordersSystem.addOrder(order1); //passe le current momento au dernier ajouté au tableau
         ordersSystem.addOrder(order2);
-        ordersSystem.addOrder(order3);
-        System.out.println(ordersSystem.getMomentoList().indexOf(ordersSystem.getMomento()));
         ordersSystem.undo(); //liste de momentos avec 2 liste, ce undo passe le current momento a celui qui est avant l'actuel current momento dans le tableau
 
-        //System.out.println(ordersSystem.getMomento().getLogs());
 
-        //Assert.assertEquals(1, ordersSystem.getMomentoList().indexOf(ordersSystem.getMomento()));
+        Assert.assertNotEquals(ordersSystem.getMomentoList().get(1).getLogs(), ordersSystem.getMomentoList().get(2).getLogs());
+
+
+    }
+
+    //STORY 10
+    @Test
+    public void RedoWorksWhenDidUndo() {
+        ordersSystem = new OrdersSytem(new SystemLogger());
+        Order order = new Order();
+        order.addClothes(new Shoe("Botte de ferme",50));
+        ordersSystem.addOrder(order); //passe le current momento au dernier ajouté au tableau
+        ordersSystem.redo(); // redo quand il y n'y a pas de n+1 de crash pas
+
+        Assert.assertEquals(2, ordersSystem.getMomentoList().size());
+
+    }
+
+    //STORY 10
+    @Test
+    public void RedoWorksWhenAddThenUndoThenRedo() {
+        ordersSystem = new OrdersSytem(new SystemLogger());
+        Order order1 = new Order();
+        Order order2 = new Order();
+        order1.addClothes(new Shoe("Botte de ferme",50));
+        order2.addClothes(new Shoe("Sandale",50));
+        ordersSystem.addOrder(order1); //passe le current momento au dernier ajouté au tableau
+        ordersSystem.addOrder(order2);
+        ordersSystem.undo();
+
+        Assert.assertEquals(1, ordersSystem.getMomentoList().indexOf(ordersSystem.getMomento()));
+
+        ordersSystem.redo();
+
+        Assert.assertEquals(2, ordersSystem.getMomentoList().indexOf(ordersSystem.getMomento()));
 
     }
 

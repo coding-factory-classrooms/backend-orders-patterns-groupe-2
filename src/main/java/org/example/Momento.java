@@ -1,12 +1,14 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Momento {
-    private List<String> logs;
+    private final List<String> logs;
 
     public Momento(List<String> logs){
-        this.logs = logs;
+        this.logs = new ArrayList<>();
+        this.logs.addAll(logs);
     }
 
     public List<String> getLogs(){

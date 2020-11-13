@@ -24,4 +24,31 @@ public class DashboardController {
 
         return Template.render("dashboard.html",model);
     }
+
+    public String undo (Request request, Response response){
+        Map<String, Object> model = new HashMap<>();
+
+        ordersSytem.undo();
+
+        int index = ordersSytem.getLogs().size();
+
+        model.put("id",index);
+        model.put("orders",ordersSytem.getOrdersList());
+        model.put("logs",ordersSytem.getLogs());
+
+        return Template.render("dashboard.html",model);
+    }
+    public String redo (Request request, Response response){
+        Map<String, Object> model = new HashMap<>();
+
+        ordersSytem.redo();
+
+        int index = ordersSytem.getLogs().size();
+
+        model.put("id",index);
+        model.put("orders",ordersSytem.getOrdersList());
+        model.put("logs",ordersSytem.getLogs());
+
+        return Template.render("dashboard.html",model);
+    }
 }
